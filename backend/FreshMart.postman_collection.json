@@ -1,0 +1,352 @@
+{
+  "info": {
+    "name": "FreshMart API",
+    "description": "Postman collection for the FreshMart FastAPI backend. Base URL: http://localhost:8000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Root Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "Check if the API server is running."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "{\"status\": \"FreshMart API running\"}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"]
+            },
+            "description": "Returns all product categories: vegetables, fruits, bakery, dairy, meat."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": \"vegetables\",\n    \"name\": \"Vegetables\",\n    \"image\": \"https://images.unsplash.com/...\",\n    \"icon\": \"Carrot\"\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"]
+            },
+            "description": "Returns all products sorted alphabetically by name (default)."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": \"1\",\n    \"name\": \"Organic Broccoli\",\n    \"category\": \"vegetables\",\n    \"price\": 2.99,\n    \"image\": \"https://images.unsplash.com/...\",\n    \"unit\": \"per head\",\n    \"description\": \"Fresh organic broccoli, rich in vitamins and minerals.\",\n    \"inStock\": true\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Products - Filter by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products?category=fruits",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "fruits",
+                  "description": "One of: vegetables, fruits, bakery, dairy, meat"
+                }
+              ]
+            },
+            "description": "Filter products by category. Available: vegetables, fruits, bakery, dairy, meat."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Products - Sort Price Low to High",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products?sort=price-low",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "price-low",
+                  "description": "Sort options: name, price-low, price-high"
+                }
+              ]
+            },
+            "description": "Returns all products sorted by price ascending."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Products - Sort Price High to Low",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products?sort=price-high",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "price-high"
+                }
+              ]
+            },
+            "description": "Returns all products sorted by price descending."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Products - Filter + Sort Combined",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products?category=dairy&sort=price-low",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "dairy"
+                },
+                {
+                  "key": "sort",
+                  "value": "price-low"
+                }
+              ]
+            },
+            "description": "Filter by category and sort simultaneously."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "1"]
+            },
+            "description": "Returns a single product by its ID. Returns 404 if not found."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"1\",\n  \"name\": \"Organic Broccoli\",\n  \"category\": \"vegetables\",\n  \"price\": 2.99,\n  \"image\": \"https://images.unsplash.com/...\",\n  \"unit\": \"per head\",\n  \"description\": \"Fresh organic broccoli, rich in vitamins and minerals.\",\n  \"inStock\": true\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\"detail\": \"Product not found\"}"
+            }
+          ]
+        },
+        {
+          "name": "Get Product by ID - Not Found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/products/999",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", "999"]
+            },
+            "description": "Example of a product ID that does not exist — returns 404."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Place Order - Standard Delivery",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"555-123-4567\",\n  \"address\": \"123 Main Street\",\n  \"city\": \"Springfield\",\n  \"state\": \"IL\",\n  \"zip\": \"62701\",\n  \"deliveryMethod\": \"standard\",\n  \"items\": [\n    {\n      \"id\": \"1\",\n      \"name\": \"Organic Broccoli\",\n      \"price\": 2.99,\n      \"quantity\": 2,\n      \"unit\": \"per head\"\n    },\n    {\n      \"id\": \"5\",\n      \"name\": \"Honeycrisp Apples\",\n      \"price\": 4.99,\n      \"quantity\": 1,\n      \"unit\": \"per lb\"\n    }\n  ],\n  \"subtotal\": 10.97,\n  \"tax\": 0.88,\n  \"deliveryFee\": 5.99,\n  \"total\": 17.84\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders"]
+            },
+            "description": "Place a new order with standard delivery. Returns a unique order ID."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"orderId\": \"A1B2C3D4\",\n  \"message\": \"Order placed successfully\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Place Order - Express Delivery",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"email\": \"jane.smith@example.com\",\n  \"phone\": \"555-987-6543\",\n  \"address\": \"456 Oak Avenue\",\n  \"city\": \"Chicago\",\n  \"state\": \"IL\",\n  \"zip\": \"60601\",\n  \"deliveryMethod\": \"express\",\n  \"items\": [\n    {\n      \"id\": \"13\",\n      \"name\": \"Whole Milk\",\n      \"price\": 4.49,\n      \"quantity\": 1,\n      \"unit\": \"per gallon\"\n    },\n    {\n      \"id\": \"16\",\n      \"name\": \"Organic Eggs\",\n      \"price\": 5.49,\n      \"quantity\": 2,\n      \"unit\": \"dozen\"\n    },\n    {\n      \"id\": \"9\",\n      \"name\": \"Artisan Sourdough\",\n      \"price\": 5.49,\n      \"quantity\": 1,\n      \"unit\": \"per loaf\"\n    }\n  ],\n  \"subtotal\": 20.96,\n  \"tax\": 1.68,\n  \"deliveryFee\": 9.99,\n  \"total\": 32.63\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders"]
+            },
+            "description": "Place a new order with express delivery ($9.99 fee)."
+          },
+          "response": []
+        },
+        {
+          "name": "Place Order - Free Delivery (over $50)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Johnson\",\n  \"email\": \"alice.j@example.com\",\n  \"phone\": \"555-222-3333\",\n  \"address\": \"789 Pine Road\",\n  \"city\": \"Naperville\",\n  \"state\": \"IL\",\n  \"zip\": \"60540\",\n  \"deliveryMethod\": \"standard\",\n  \"items\": [\n    {\n      \"id\": \"17\",\n      \"name\": \"Chicken Breast\",\n      \"price\": 8.99,\n      \"quantity\": 3,\n      \"unit\": \"per lb\"\n    },\n    {\n      \"id\": \"19\",\n      \"name\": \"Wild Salmon\",\n      \"price\": 14.99,\n      \"quantity\": 2,\n      \"unit\": \"per lb\"\n    }\n  ],\n  \"subtotal\": 56.95,\n  \"tax\": 4.56,\n  \"deliveryFee\": 0,\n  \"total\": 61.51\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders"]
+            },
+            "description": "Order totaling over $50 — qualifies for free standard delivery."
+          },
+          "response": []
+        },
+        {
+          "name": "Place Order - Validation Error",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "orders"]
+            },
+            "description": "Intentionally incomplete body to demonstrate 422 Unprocessable Entity validation error."
+          },
+          "response": [
+            {
+              "name": "422 Unprocessable Entity",
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\"body\", \"lastName\"],\n      \"msg\": \"field required\",\n      \"type\": \"value_error.missing\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
