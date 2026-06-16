@@ -6,7 +6,7 @@ import { Badge } from '../components/ui/badge';
 import { useCart } from '../context/CartContext';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { ProductCard } from '../components/ProductCard';
-import { fetchProduct, fetchProducts, Product } from '../api';
+import { fetchProduct, fetchProducts, type Product } from '../api';
 
 export function ProductDetail() {
   const { id } = useParams();

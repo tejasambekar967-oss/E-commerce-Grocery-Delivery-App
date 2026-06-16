@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '../components/ui/select';
-import { fetchProducts, fetchCategories, Product, Category } from '../api';
+import { fetchProducts, fetchCategories, type Product, type Category } from '../api';
 
 export function Products() {
   const [searchParams, setSearchParams] = useSearchParams();

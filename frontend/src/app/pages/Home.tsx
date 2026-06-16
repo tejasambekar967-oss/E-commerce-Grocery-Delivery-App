@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { CategoryCard } from '../components/CategoryCard';
 import { ProductCard } from '../components/ProductCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { fetchProducts, fetchCategories, Product, Category } from '../api';
+import { fetchProducts, fetchCategories, type Product, type Category } from '../api';
 
 export function Home() {
   const [products, setProducts] = useState<Product[]>([]);
