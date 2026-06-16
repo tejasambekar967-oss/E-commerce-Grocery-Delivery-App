@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from config.settings import FRONTEND_ORIGIN
-from router import products, categories, orders, auth
+from router import products, categories, orders, auth, admin
 import traceback
 
 app = FastAPI(title="FreshMart API")
@@ -25,6 +25,7 @@ app.include_router(products.router)
 app.include_router(categories.router)
 app.include_router(orders.router)
 app.include_router(auth.router)
+app.include_router(admin.router)
 
 
 @app.get("/")

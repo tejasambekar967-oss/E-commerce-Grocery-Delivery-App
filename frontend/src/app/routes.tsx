@@ -7,6 +7,7 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
+import { Admin } from './pages/Admin';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
   {
     path: '/signup',
     Component: Signup,
+  },
+  {
+    path: '/admin',
+    Component: Admin,
   },
   {
     path: '/',
