@@ -1,9 +1,5 @@
 from fastapi import APIRouter, Header
-from controller.auth_controller import (
-    AuthRequest, ForgotPasswordRequest, ResetPasswordRequest,
-    signup_user, login_user, logout_user, get_current_user,
-    forgot_password, reset_password
-)
+from controller.auth_controller import AuthRequest, signup_user, login_user, logout_user, get_current_user
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -28,13 +24,3 @@ def logout(authorization: str = Header(...)):
 def me(authorization: str = Header(...)):
     token = authorization.replace("Bearer ", "")
     return get_current_user(token)
-
-
-@router.post("/forgot-password")
-def forgot(data: ForgotPasswordRequest):
-    return forgot_password(data)
-
-
-@router.post("/reset-password")
-def reset(data: ResetPasswordRequest):
-    return reset_password(data)

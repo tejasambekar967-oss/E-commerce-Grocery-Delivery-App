@@ -56,12 +56,7 @@ export function Login() {
                 <Input id="email" type="email" placeholder="you@example.com" required />
               </div>
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
-                  <Link to="/forgot-password" className="text-sm text-primary hover:underline">
-                    Forgot password?
-                  </Link>
-                </div>
+                <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" placeholder="••••••••" required />
               </div>
 

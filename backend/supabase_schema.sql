@@ -50,15 +50,7 @@ create table if not exists orders (
   created_at timestamptz default now()
 );
 
--- Password Reset Tokens
-create table if not exists password_reset_tokens (
-  id bigint generated always as identity primary key,
-  user_id text references users(id) on delete cascade,
-  token text unique not null,
-  expires_at timestamptz not null,
-  used boolean default false,
-  created_at timestamptz default now()
-);
+-- Order Items
 create table if not exists order_items (
   id bigint generated always as identity primary key,
   order_id bigint references orders(id) on delete cascade,
@@ -82,24 +74,24 @@ insert into categories (id, name, image, icon) values
 on conflict (id) do nothing;
 
 insert into products (id, name, category, price, image, unit, description, "inStock") values
-  ('1',  'Organic Broccoli',      'vegetables', 49.00,   'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per head',   'Fresh organic broccoli, rich in vitamins and minerals.', true),
-  ('2',  'Red Bell Peppers',      'vegetables', 59.00,   'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per 500g',   'Sweet and crunchy red bell peppers, perfect for salads.', true),
-  ('3',  'Baby Carrots',          'vegetables', 39.00,   'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per bag',    'Pre-washed baby carrots, ready to eat.', true),
-  ('4',  'Fresh Spinach',         'vegetables', 29.00,   'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per bunch',  'Tender fresh spinach leaves, perfect for salads or cooking.', true),
-  ('5',  'Honeycrisp Apples',     'fruits',     149.00,  'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per kg',     'Crispy, sweet Honeycrisp apples.', true),
-  ('6',  'Fresh Strawberries',    'fruits',     99.00,   'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per punnet', 'Sweet, juicy strawberries.', true),
-  ('7',  'Organic Bananas',       'fruits',     49.00,   'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per dozen',  'Organic yellow bananas, perfect for snacking.', true),
-  ('8',  'Blueberries',           'fruits',     199.00,  'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per punnet', 'Fresh, plump blueberries packed with antioxidants.', true),
-  ('9',  'Artisan Sourdough',     'bakery',     89.00,   'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'per loaf',   'Handcrafted sourdough bread with a crispy crust.', true),
-  ('10', 'Butter Croissants',     'bakery',     129.00,  'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'pack of 6',  'Flaky, buttery croissants baked fresh daily.', true),
-  ('11', 'Whole Wheat Bread',     'bakery',     55.00,   'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'per loaf',   'Nutritious whole wheat sandwich bread.', true),
-  ('12', 'Chocolate Chip Cookies','bakery',     79.00,   'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'pack of 12', 'Homemade-style chocolate chip cookies.', true),
-  ('13', 'Whole Milk',            'dairy',      65.00,   'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'per litre',  'Fresh whole milk from local farms.', true),
-  ('14', 'Greek Yogurt',          'dairy',      119.00,  'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'per 400g',   'Thick and creamy Greek yogurt, high in protein.', true),
-  ('15', 'Sharp Cheddar',         'dairy',      249.00,  'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'per 200g',   'Aged sharp cheddar cheese.', true),
-  ('16', 'Organic Eggs',          'dairy',      89.00,   'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'dozen',      'Cage-free organic eggs.', true),
-  ('17', 'Chicken Breast',        'meat',       299.00,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per kg',     'Boneless, skinless chicken breast.', true),
-  ('18', 'Ground Beef',           'meat',       349.00,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per kg',     '85% lean ground beef.', true),
-  ('19', 'Wild Salmon',           'meat',       599.00,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per kg',     'Fresh wild-caught salmon fillet.', true),
-  ('20', 'Pork Chops',            'meat',       399.00,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per kg',     'Thick-cut bone-in pork chops.', true)
-on conflict (id) do update set price = EXCLUDED.price, unit = EXCLUDED.unit;
+  ('1',  'Organic Broccoli',      'vegetables', 2.99,  'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per head',   'Fresh organic broccoli, rich in vitamins and minerals.', true),
+  ('2',  'Red Bell Peppers',      'vegetables', 3.49,  'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per lb',     'Sweet and crunchy red bell peppers, perfect for salads.', true),
+  ('3',  'Baby Carrots',          'vegetables', 2.49,  'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per bag',    'Pre-washed baby carrots, ready to eat.', true),
+  ('4',  'Fresh Spinach',         'vegetables', 3.99,  'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400', 'per bunch',  'Tender fresh spinach leaves, perfect for salads or cooking.', true),
+  ('5',  'Honeycrisp Apples',     'fruits',     4.99,  'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per lb',     'Crispy, sweet Honeycrisp apples.', true),
+  ('6',  'Fresh Strawberries',    'fruits',     5.99,  'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per pint',   'Sweet, juicy strawberries.', true),
+  ('7',  'Organic Bananas',       'fruits',     0.79,  'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'each',       'Organic yellow bananas, perfect for snacking.', true),
+  ('8',  'Blueberries',           'fruits',     6.99,  'https://images.unsplash.com/photo-1725208961101-4c28375bdee7?w=400', 'per pint',   'Fresh, plump blueberries packed with antioxidants.', true),
+  ('9',  'Artisan Sourdough',     'bakery',     5.49,  'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'per loaf',   'Handcrafted sourdough bread with a crispy crust.', true),
+  ('10', 'Butter Croissants',     'bakery',     7.99,  'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'pack of 6',  'Flaky, buttery croissants baked fresh daily.', true),
+  ('11', 'Whole Wheat Bread',     'bakery',     3.99,  'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'per loaf',   'Nutritious whole wheat sandwich bread.', true),
+  ('12', 'Chocolate Chip Cookies','bakery',     4.99,  'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400', 'pack of 12', 'Homemade-style chocolate chip cookies.', true),
+  ('13', 'Whole Milk',            'dairy',      4.49,  'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'per gallon', 'Fresh whole milk from local farms.', true),
+  ('14', 'Greek Yogurt',          'dairy',      5.99,  'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'per 32oz',   'Thick and creamy Greek yogurt, high in protein.', true),
+  ('15', 'Sharp Cheddar',         'dairy',      6.99,  'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'per 8oz',    'Aged sharp cheddar cheese.', true),
+  ('16', 'Organic Eggs',          'dairy',      5.49,  'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', 'dozen',      'Cage-free organic eggs.', true),
+  ('17', 'Chicken Breast',        'meat',       8.99,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per lb',     'Boneless, skinless chicken breast.', true),
+  ('18', 'Ground Beef',           'meat',       7.99,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per lb',     '85% lean ground beef.', true),
+  ('19', 'Wild Salmon',           'meat',       14.99, 'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per lb',     'Fresh wild-caught salmon fillet.', true),
+  ('20', 'Pork Chops',            'meat',       9.99,  'https://images.unsplash.com/photo-1700478934617-75d2d4f01a04?w=400', 'per lb',     'Thick-cut bone-in pork chops.', true)
+on conflict (id) do nothing;
