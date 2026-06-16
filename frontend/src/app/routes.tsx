@@ -7,6 +7,8 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
+import { ForgotPassword } from './pages/ForgotPassword';
+import { ResetPassword } from './pages/ResetPassword';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ export const router = createBrowserRouter([
   {
     path: '/signup',
     Component: Signup,
+  },
+  {
+    path: '/forgot-password',
+    Component: ForgotPassword,
+  },
+  {
+    path: '/reset-password',
+    Component: ResetPassword,
   },
   {
     path: '/',
