@@ -56,14 +56,14 @@ export function Login() {
             <CardDescription>Sign in to your account to continue</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="you@example.com" required autoComplete="off" />
+                <Input id="email" type="email" placeholder="you@example.com" required autoComplete="email" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" placeholder="••••••••" required autoComplete="new-password" />
+                <Input id="password" type="password" placeholder="••••••••" required autoComplete="current-password" />
               </div>
 
               {error && <p className="text-sm text-destructive">{error}</p>}
