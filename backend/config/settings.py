@@ -8,6 +8,7 @@ load_dotenv()
 FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 ADMIN_SECRET = os.getenv("ADMIN_SECRET", "freshmart-admin-secret")
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "admin@freshmart.com")
 
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL must be set in .env")

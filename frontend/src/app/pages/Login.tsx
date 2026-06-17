@@ -25,7 +25,13 @@ export function Login() {
     try {
       const res = await apiLogin(email, password);
       setAuth(res.access_token, res.user);
-      navigate('/');
+      // Redirect admin users to the admin panel
+      if (res.is_admin) {
+        sessionStorage.setItem('admin_secret', import.meta.env.VITE_ADMIN_SECRET ?? '');
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {

@@ -74,7 +74,7 @@ export function fetchCategories(): Promise<Category[]> {
 // ── Auth ───────────────────────────────────────────────────────────────────
 
 export function apiLogin(email: string, password: string) {
-  return request<{ access_token: string; user: AuthUser }>('/auth/login', {
+  return request<{ access_token: string; user: AuthUser; is_admin: boolean }>('/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),

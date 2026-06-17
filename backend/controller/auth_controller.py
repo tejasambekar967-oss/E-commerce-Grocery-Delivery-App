@@ -2,7 +2,7 @@ import uuid
 import hashlib
 from fastapi import HTTPException
 from pydantic import BaseModel
-from config.settings import get_db
+from config.settings import get_db, ADMIN_EMAIL
 
 
 class AuthRequest(BaseModel):
@@ -48,7 +48,12 @@ def login_user(data: AuthRequest):
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
     token = str(uuid.uuid4())
-    return {"access_token": token, "user": {"id": user["id"], "email": user["email"]}}
+    is_admin = user["email"].lower() == ADMIN_EMAIL.lower()
+    return {
+        "access_token": token,
+        "user": {"id": user["id"], "email": user["email"]},
+        "is_admin": is_admin,
+    }
 
 
 def logout_user(token: str):
