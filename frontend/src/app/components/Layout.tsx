@@ -13,6 +13,7 @@ export function Layout() {
 
   const handleLogout = async () => {
     await logout();
+    sessionStorage.removeItem('admin_secret');
     navigate('/login');
   };
 

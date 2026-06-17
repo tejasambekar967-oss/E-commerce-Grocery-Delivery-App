@@ -229,6 +229,7 @@ export function Admin() {
   const handleLogout = () => {
     sessionStorage.removeItem('admin_secret');
     setSecret(null);
+    window.location.href = '/login';
   };
 
   useEffect(() => {
